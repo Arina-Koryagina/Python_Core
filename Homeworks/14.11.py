@@ -28,11 +28,15 @@ print(f"{K - 1} буде найбільш можливою кількістю ц
 print("\n\t\tIII")
 
 N = int(input("Введіть N: "))
-i = 1
-summ = 0
-while i <= N:
-    m = int(str(i) + str(i))
-    summ += m
-    i += 1
-    print(m, end=' + ')
-print(f"= {summ}")
+p = 1
+n = 0
+h = 2
+while h > 0:
+    m = N
+    while m > 0:
+        r = m % 10
+        n += r * p
+        p *= 10
+        m //= 10
+    h -= 1
+print(f"= {n}")
