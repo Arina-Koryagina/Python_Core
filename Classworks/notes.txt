@@ -51,3 +51,12 @@ for i in range(n):  -- цикл з параметром
 while condition:  -- цикл з умовою
     oper1
     oper2
+
+Масив [] -- структура даних одного типу (класично)
+Список значень (list[]) -- набір елементів / об'єднання данних будь-якого типу (в пайтоні)
+
+nums = []
+nums. - index(), count(), append(), remove(), reverse(), insert(), pop()
+len(nums)
+min(), max(), sum()
+nums[1:4] -- зріз
