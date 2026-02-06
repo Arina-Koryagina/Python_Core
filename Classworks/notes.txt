@@ -62,8 +62,8 @@ min(), max(), sum(), len(), set()
 nums[1:4] -- зріз
 
 !! Bubble sort !!
-for j in range(n-1):
-    for i in range(n-1-j):
+for j in range(len(nums)-1):
+    for i in range(len(nums)-1-j):
         if nums[i] > nums[i+1]:
             nums[i], nums[i+1] = nums[i+1], nums[i]
 
@@ -72,5 +72,9 @@ for j in range(n-1):
 Сортування - пузирком, вставками, вибором
 
 Функція - іменований фрагмент коду
-def name(var):
+def name(var (позиційний), *var(ключовий), var=0(за замовченням)):
     func
+
+name(var) - позиційний тип передачі, name(var=0) - ключовий тип
+
+Ім'я (ідентифікатор) - це адреса
