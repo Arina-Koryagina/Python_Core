@@ -74,7 +74,7 @@
 # arr2 = list(map(square, arr))
 # print(arr2)
 
-s = "mamy"
+s = "wxyzabcd"
 m = ""
 n = 3
 for i in s:
