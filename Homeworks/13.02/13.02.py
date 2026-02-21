@@ -12,11 +12,11 @@ def maxLength(m):
     return maxLen
 
 def maxMarks(m):
-    maxLen = len(m[0][1:])
+    maxMark = len(m[0][1:])
     for i in range(len(m)):
-        if len(m[i][1:]) > maxLen:
-            maxLen = len(m[i][1:])
-    return maxLen
+        if len(m[i][1:]) > maxMark:
+            maxMark = len(m[i][1:])
+    return maxMark
 
 def getAvg(m):
     avg = sum(m[1:]) / (len(m) - 1)
