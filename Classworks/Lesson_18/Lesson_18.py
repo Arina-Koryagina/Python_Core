@@ -13,7 +13,7 @@
 # f.write('\n'.join(merged))
 # f.close()
 # print("Done.")
-import datetime
+# import datetime
 
 # file_list = ["file1.txt", "file2.txt", "file3.txt"]
 #
@@ -98,23 +98,22 @@ def getTime(st, en):
         h -= 1
     if h < 0:
         h += 24
-    return m + (60 * h)
+    # return f'{str(h).zfill(2)}:{str(m).zfill(2)}:00'
+    return (h * 60) + m
 
 total_list = []
 for i in range(len(IPs)):
     total_list.append([IPs[i], getTime(start[i], end[i])])
 
 unique_IPs = []
-for i in range(len(IPs)):
-    if IPs[i] not in unique_IPs:
-        unique_IPs.append(IPs[i])
-
 the_list = []
 
-# for i in range(len(unique_IPs)):
-#     # the_list.append([total_list[i]])
-#     for IP in unique_IPs:
-#         # порахувати загальну кіл-ть годин за весь час для кожного IP
+for i in range(len(total_list)):
+    if total_list[i][0] not in unique_IPs:
+        unique_IPs.append(total_list[i][0])
+        the_list.append(total_list[i])
+    else:
+        the_list[unique_IPs.index(total_list[i][0])][1] += total_list[i][1]
 
 the_IP = the_list[0][0]
 longest = the_list[0][1]
@@ -123,28 +122,33 @@ for i in range(len(unique_IPs)):
         longest = the_list[i][1]
         the_IP = the_list[i][0]
 
+lon_d = 0
 lon_h = round(longest / 60)
 lon_m = longest - lon_h * 60
+while lon_m > 60:
+    lon_h += 1
+    lon_m -= 60
 if lon_m < 60:
     lon_h -= 1
     lon_m += 60
+while lon_h > 23:
+    lon_h -= 24
+    lon_d += 1
 
-print(f"The IP is {the_IP} with total of {lon_h}h {lon_m}m.")
-# The IP is 192.168.0.110 with total of 23h 39m. (1419 minutes)
+print(f"The IP is {the_IP} with total of {lon_d} day(s), {lon_h}h, {lon_m}m.")
+# The IP is 192.168.0.139 with total of 49 day(s), 10h, 39m.
 
 # def deltatime(t1, t2):
 #     h1, m1 = map(int, t1.split('.'))
 #     h2, m2 = map(int, t2.split('.'))
 #     dt1 = datetime.timedelta(hours=h1, minutes=m1)
 #     dt2 = datetime.timedelta(hours=h2, minutes=m2)
-#     # dt = str(dt2-dt1).split()
-#     # dt = dt[-1].split(":")
-#     # print(f"{dt[0]}h {dt[1]}m")
 #     if dt1 < dt2:
 #         return dt2 - dt1
-#     return datetime.timedelta(hours=24) - (dt1 - dt2)
+    # return datetime.timedelta(hours=24) - (dt1 - dt2)
+    # return datetime.timedelta(minutes=1440) - (dt1 - dt2)
 
 # print(getTime('10.32', '8.54'))
-# print(deltatime('07.27', '13.39'))
+# print(deltatime('10.32', '8.54'))
 # print(deltatime('12.04', '06.47'))
 # print(deltatime('17.00', '03.54'))

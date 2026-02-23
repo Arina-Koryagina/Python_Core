@@ -38,10 +38,10 @@ def getAvg(m: list):
 
 def sortStudents(m: list):
     n = len(m)
-    for j in range(n):
-        for i in range(0, n-j-1):
-            if getAvg(m[i]) < getAvg(m[i + 1]):
-                m[i], m[i+1] = m[i+1], m[i]
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if getAvg(m[j]) < getAvg(m[j + 1]):
+                m[j], m[j+1] = m[j+1], m[j]
 
 def printStudent(m: list):
     maxLen = maxLength(m)
@@ -100,3 +100,61 @@ else:
     sortStudents(marks)
     printStudent(marks)
 
+# #####
+
+f = open("log.txt", 'r')
+logList = [[l for l in line.replace('\n', '').split()] for line in f.readlines()]
+f.close()
+
+IPs = [el[0] for el in logList]
+start = [el[2] for el in logList]
+end = [el[3] for el in logList]
+
+def getTime(st, en):
+    h1, m1 = map(int, st.split('.'))
+    h2, m2 = map(int, en.split('.'))
+    h = h2 - h1
+    m = m2 - m1
+    if m < 0:
+        m += 60
+        h -= 1
+    if h < 0:
+        h += 24
+    return (h * 60) + m
+
+total_list = []
+for i in range(len(IPs)):
+    total_list.append([IPs[i], getTime(start[i], end[i])])
+
+unique_IPs = []
+the_list = []
+
+for i in range(len(total_list)):
+    if total_list[i][0] not in unique_IPs:
+        unique_IPs.append(total_list[i][0])
+        the_list.append(total_list[i])
+    else:
+        the_list[unique_IPs.index(total_list[i][0])][1] += total_list[i][1]
+
+the_IP = the_list[0][0]
+longest = the_list[0][1]
+for i in range(len(unique_IPs)):
+    if the_list[i][1] > longest:
+        longest = the_list[i][1]
+        the_IP = the_list[i][0]
+
+lon_d = 0
+lon_h = round(longest / 60)
+lon_m = longest - lon_h * 60
+while lon_m > 60:
+    lon_h += 1
+    lon_m -= 60
+if lon_m < 60:
+    lon_h -= 1
+    lon_m += 60
+while lon_h > 23:
+    lon_h -= 24
+    lon_d += 1
+
+print(f"\nThe IP is {the_IP} with total of {lon_d} day(s), {lon_h}h, {lon_m}m.")
+# The IP is 192.168.0.139 with total of 49 day(s), 10h, 39m.
